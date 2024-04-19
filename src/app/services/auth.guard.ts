@@ -14,7 +14,9 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const result = this.checkLogin(state.url, route.data['roles']);
+    const roles = route.data['roles'] as string[];
+
+    const result = this.checkLogin(state.url, roles);
       
     if (this.isObservable(result)) {
       result.subscribe(
@@ -54,29 +56,29 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   private checkLogin(url: string, roles: string[] | undefined): boolean | UrlTree {
     const userRole = this.authService.getUserRole() || 'guest';
 
-    if (this.authService.isLoggedIn()) {
-      // Vérifie si le rôle de l'utilisateur est autorisé à accéder à la route
-      const userRoles = Array.isArray(userRole) ? userRole : [userRole];
-      if(roles && !roles.some(role => userRole.includes(role)))  {
-        console.log('User role is not authorized to access this route:', url);
-        return this.router.createUrlTree(['/not-found']); // Redirige vers une page d'erreur 404
-      }
-
+    if (!this.authService.isLoggedIn()) {
+      const urlTree = this.router.createUrlTree(['/login'], { queryParams: { returnUrl: url } });
+      console.log('Redirecting to:', urlTree.toString());
+      return urlTree;
     }
+
+    const userRoles = Array.isArray(userRole) ? userRole : [userRole];
+
+    if (roles && !roles.some(role => userRoles.includes(role)))  {
+      console.log('User role is not authorized to access this route:', url);
+      return this.router.createUrlTree(['/not-found']); // Redirige vers une page d'erreur 404
+    }
+
     if (url.endsWith('/edit') && userRole.includes('user')) {
       console.log('User role is not authorized to access this route:', url);
       return this.router.createUrlTree(['/not-found']); // Redirige vers une page d'erreur 404
     }
-      console.log('User is logged in with role:', userRole);
-      return true;
-    
 
-    // Redirige vers la page de connexion
-    const urlTree = this.router.createUrlTree(['/login'], { queryParams: { returnUrl: url } });
-    console.log('Redirecting to:', urlTree.toString());
-    return urlTree;
+    console.log('User is logged in with role:', userRole);
+    return true;
   }
 }
+
 
   /*canActivate(
     route: ActivatedRouteSnapshot,

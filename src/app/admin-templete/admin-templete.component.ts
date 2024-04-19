@@ -21,7 +21,7 @@ export class AdminTempleteComponent {
   
   public loggedInUser: string | null = null;
   public redirectUrl: string | null = null;
-  constructor(private authService : AuthenticationService,
+  constructor(public authService : AuthenticationService,
   private router : Router ){ }
 
   
@@ -30,7 +30,7 @@ export class AdminTempleteComponent {
   ngOnInit(): void {
     const userRole = this.authService.getUserRole() || 'guest';
     this.isAdmin = ['admin', 'anotherRole'].includes(userRole);
-   
+    this.loggedInUser = this.authService.loggedInUser;
   }
 
   

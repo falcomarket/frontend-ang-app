@@ -21,8 +21,7 @@
     <button routerLink="login" mat-fab color="accent" (click)="  logout()" style="width: 30px; height: 30px;">
     <mat-icon>logout</mat-icon>
     </button>
-    <span *ngIf="loggedInUser" class="user-name">{{ loggedInUser }}</span>
-   
+    <span *ngIf="authService.loggedInUser" class="user-name">{{ loggedInUser }}</span>
 
     
 
