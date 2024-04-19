@@ -1,0 +1,53 @@
+<mat-toolbar color="primary">
+    <button mat-icon-button (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+    </button>
+    
+    <span Style="flex: auto" ></span>
+
+    <button mat-button routerLink="/admin/home"><mat-icon>home</mat-icon>Home</button>
+
+
+    <button mat-button [matMenuTriggerFor]="membreMenu"><mat-icon>people</mat-icon>Membre</button>
+    <mat-menu #membreMenu="matMenu">
+        <button mat-menu-item routerLink="/admin/nouvelle">Nouvelle Inscription</button>
+        <button mat-menu-item routerLink="/admin/edit">Modifier Inscription</button>
+        <button mat-menu-item routerLink="/admin/contrat">Contrat Membre</button>
+        <button mat-menu-item routerLink="/admin/carte">Carte Membre</button>
+        <button mat-menu-item routerLink="/admin/liste">Liste Membres</button>
+    </mat-menu>
+        
+   
+    <button routerLink="login" mat-fab color="accent" (click)="  logout()" style="width: 30px; height: 30px;">
+    <mat-icon>logout</mat-icon>
+    </button>
+    <span *ngIf="loggedInUser" class="user-name">{{ loggedInUser }}</span>
+   
+
+    
+
+</mat-toolbar>
+
+<mat-drawer-container class="container-side">
+<mat-drawer #drawer class="mat-drawer" mode="side" position="start" opened="true">
+    <mat-nav-list>
+      <a mat-list-item routerLink="/admin/dashboard" (click)="drawer.close()">
+        <mat-icon>dashboard</mat-icon>
+        <span>Dashboard</span>
+      </a>
+      <a mat-list-item routerLink="/admin/membre" (click)="drawer.close()">
+        <mat-icon>people</mat-icon>
+        <span>Membres</span>
+      </a>
+    </mat-nav-list>
+  </mat-drawer>
+  <mat-drawer-content>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+      
+    
+  </mat-drawer-content>
+</mat-drawer-container>
+
+
