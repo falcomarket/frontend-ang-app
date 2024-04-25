@@ -1,11 +1,19 @@
-
+.container-tools{
+    
+    max-width: 100%;
+   
+}
 
 .mat-drawer{
-    width: 250px;
+    
+    width: 250 px;
     box-shadow: 3px 0 6px rgba(0,0,0,0.24);
+
 }
 .user-name {
     margin-left: 10px;
     font-weight: bold;
   }
-  
+  .nav-divider {
+    margin: 0 38%; 
+}

@@ -1,3 +1,4 @@
+<div class="container-tools">
 <mat-toolbar color="primary">
     <button mat-icon-button (click)="drawer.toggle()">
         <mat-icon>menu</mat-icon>
@@ -9,19 +10,24 @@
 
 
     <button mat-button [matMenuTriggerFor]="membreMenu"><mat-icon>people</mat-icon>Membre</button>
+    
     <mat-menu #membreMenu="matMenu">
-        <button mat-menu-item routerLink="/admin/nouvelle">Nouvelle Inscription</button>
+        <button mat-menu-item *ngIf="isAdmin" routerLink="/admin/nouvelle">Nouvelle Inscription</button>
         <button mat-menu-item *ngIf="isAdmin" routerLink="/admin/edit">Modifier Inscription</button>
         <button mat-menu-item routerLink="/admin/contrat">Contrat Membre</button>
         <button mat-menu-item routerLink="/admin/carte">Carte Membre</button>
-        <button mat-menu-item routerLink="/admin/liste">Liste Membres</button>
+        <button mat-menu-item *ngIf="isAdmin"routerLink="/admin/liste">Liste Membres</button>
     </mat-menu>
         
-   
-    <button routerLink="login" mat-fab color="accent" (click)="  logout()" style="width: 30px; height: 30px;">
-    <mat-icon>logout</mat-icon>
+    <span class="nav-divider"></span>
+    <!--button routerLink="/profil" mat-fab color="accent" (click)="profil()" style="width: 30px; height: 30px;"-->
+    <button mat-fab color="accent" (click)="openDialog()" style="width: 30px; height: 30px;">
+    <!--mat-icon>people</mat-icon-->
+    <!--mat-icon>person</mat-icon-->
+    <mat-icon>account_circle</mat-icon>
+
     </button>
-    <span *ngIf="authService.loggedInUser" class="user-name">{{ loggedInUser }}</span>
+    <!--span *ngIf="loggedInUser" class="user-name"></span-->
 
     
 
@@ -30,11 +36,11 @@
 <mat-drawer-container class="container-side">
 <mat-drawer #drawer class="mat-drawer" mode="side" position="start" opened="true">
     <mat-nav-list>
-      <a mat-list-item routerLink="/admin/dashboard" (click)="drawer.close()">
+      <a mat-list-item *ngIf="isAdmin" routerLink="/admin/dashboard" (click)="drawer.close()">
         <mat-icon>dashboard</mat-icon>
         <span>Dashboard</span>
       </a>
-      <a mat-list-item routerLink="/admin/membre" (click)="drawer.close()">
+      <a mat-list-item *ngIf="isAdmin"routerLink="/admin/membre" (click)="drawer.close()">
         <mat-icon>people</mat-icon>
         <span>Membres</span>
       </a>
@@ -49,3 +55,4 @@
   </mat-drawer-content>
 </mat-drawer-container>
 
+</div>

@@ -1,6 +1,51 @@
 
-.mat-dialog-container {
-    position: absolute;
-    top: 50px; 
-    right: 0;
+  
+  
+  .my-dialog-content {
+    position: fixed;
+      top: 35%;
+      left: 90%;
+      width: 290px;
+      height: 600px;
+      transform: translate(-50%, -50%);
+     
+    padding: 0px;
+    border-radius: 10px;
   }
+  
+  /* Style pour le titre de la boîte de dialogue */
+.titlePart {
+  height: 60px;
+  background-color: rgb(158, 158, 252);
+  display: flex;
+  flex-direction:row;
+  justify-content: center;
+}
+
+.contentPart {
+  height: 480px;
+  background-color:white;
+  display: flex;
+  flex-direction:row;
+  justify-content: center;
+}
+.footerPart {
+  height: 40px;
+  background-color:white;
+  display: flex;
+  flex-direction:row;
+  justify-content: center;
+}
+
+/* Style pour l'initial de l'utilisateur */
+.user-initial {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%; /* Pour créer un cercle */
+  background-color: rgb(250, 98, 199);
+  color: white;
+  font-size: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
